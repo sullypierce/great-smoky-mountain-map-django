@@ -1,7 +1,7 @@
 from django.db import models
-from marker_type import MarkerType
-from marker import Marker
-from trip_plan_marker import TripPlanMarker
+from .marker_type import MarkerType
+from .marker import Marker
+from .trip_plan_marker import TripPlanMarker
 from django.contrib.auth.models import User
 
 

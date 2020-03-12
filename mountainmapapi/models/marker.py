@@ -1,5 +1,5 @@
 from django.db import models
-from marker_type import MarkerType
+from .marker_type import MarkerType
 from django.contrib.auth.models import User
 
 
