@@ -84,12 +84,12 @@ class Markers(ViewSet):
         #     products, many=True, context={'request': request})
         #     return Response(serializer.data)
         # else:
-            try:
-                marker = Marker.objects.get(pk=pk)
-                serializer = MarkerSerializer(marker, context={'request': request})
-                return Response(serializer.data)
-            except Exception as ex:
-                return HttpResponseServerError(ex)
+        try:
+            marker = Marker.objects.get(pk=pk)
+            serializer = MarkerSerializer(marker, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):
         """Handle PUT requests for a product
