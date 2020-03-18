@@ -1,4 +1,3 @@
-"""Products for Bangazon"""
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -35,7 +34,7 @@ class Markers(ViewSet):
         new_marker = Marker()
         new_marker.lat = request.data["lat"]
         new_marker.long = request.data["long"]
-        new_marker.customer_id = request.auth.user.customer.id
+        new_marker.user_id = request.auth.user.id
         new_marker.description = request.data["description"]
         new_marker.is_public = request.data["is_public"]
         new_marker.picture_url = request.data["picture_url"]
