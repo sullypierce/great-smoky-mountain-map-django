@@ -20,7 +20,7 @@ class MarkerSerializer(serializers.HyperlinkedModelSerializer):
             view_name='marker',
             lookup_field='id'
         )
-        fields = ('id', 'created_at', 'lat', 'long', 'is_public', 'description', 'picture_url', 'marker_type_id', 'user_id')
+        fields = ('id', 'created_at', 'lat', 'long', 'is_public', 'description', 'picture_url', 'marker_type_id', 'marker_type', 'user_id')
         depth = 2
 
 class Markers(ViewSet):
