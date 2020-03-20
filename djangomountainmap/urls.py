@@ -22,6 +22,7 @@ from mountainmapapi.models import *
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'markers', Markers, 'marker')
+router.register(r'markertypes', MarkerTypes, 'markertype')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,4 +1,3 @@
-"""Products for Bangazon"""
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -22,6 +21,7 @@ class MarkerSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'created_at', 'lat', 'long', 'is_public', 'description', 'picture_url', 'marker_type_id', 'user_id')
+        depth = 2
 
 class Markers(ViewSet):
     """Markers for the API"""
@@ -35,7 +35,7 @@ class Markers(ViewSet):
         new_marker = Marker()
         new_marker.lat = request.data["lat"]
         new_marker.long = request.data["long"]
-        new_marker.customer_id = request.auth.user.customer.id
+        new_marker.user_id = request.auth.user.id
         new_marker.description = request.data["description"]
         new_marker.is_public = request.data["is_public"]
         new_marker.picture_url = request.data["picture_url"]
@@ -52,38 +52,6 @@ class Markers(ViewSet):
         Returns:
             Response -- JSON serialized Marker instance
         """
-        # if pk == '0':
-        #     products = Product.objects.filter(customer_id=request.auth.user.customer.id)
-            
-        #     with sqlite3.connect(Connection.db_path) as conn:
-        #         conn.row_factory = sqlite3.Row
-        #         db_cursor = conn.cursor()
-
-        #         db_cursor.execute("""
-        #             SELECT p.id as product_id, COUNT(op.id) as quantity_sold
-        #             FROM bangazon_orderproduct op 
-        #             JOIN bangazon_product p
-        #             ON op.product_id = p.id
-        #             LEFT JOIN bangazon_order o
-        #             ON op.order_id =o.id
-        #             GROUP BY p.id;      
-        #         """)
-
-        #         inventory = {}
-        #         dataset = db_cursor.fetchall()
-
-        #         for row in dataset:
-        #             inventory[row['product_id']] = row['quantity_sold']
-
-        #         for product in products:
-        #             if product.id in inventory:
-        #                 product.inventory = product.quantity - inventory[product.id]
-        #             else: 
-        #                 product.inventory = product.quantity
-        #     serializer = ProductSerializer(
-        #     products, many=True, context={'request': request})
-        #     return Response(serializer.data)
-        # else:
         try:
             marker = Marker.objects.get(pk=pk)
             serializer = MarkerSerializer(marker, context={'request': request})
