@@ -41,7 +41,7 @@ class Users(ViewSet):
         Returns:
             Response -- JSON serialized list of users
         """
-        users = User.objects.all()
+        user = User.objects.get(id=request.auth.user.id)
         serializer = UserSerializer(
-            users, many=True, context={'request': request})
+            user, context={'request': request})
         return Response(serializer.data)

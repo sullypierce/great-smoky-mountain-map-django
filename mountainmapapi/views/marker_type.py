@@ -39,6 +39,19 @@ class MarkerTypes(ViewSet):
 
         return Response(serializer.data)
 
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for single marker
+
+        Returns:
+            Response -- JSON serialized Marker instance
+        """
+        try:
+            marker_type = MarkerType.objects.get(pk=pk)
+            serializer = MarkerTypeSerializer(marker_type, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
     def list(self, request):
         """Handle GET requests to products resource
 
