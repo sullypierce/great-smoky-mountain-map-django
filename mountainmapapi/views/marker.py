@@ -68,7 +68,7 @@ class Markers(ViewSet):
         new_marker = Marker()
         new_marker.lat = request.data["lat"]
         new_marker.long = request.data["long"]
-        new_marker.customer_id = request.auth.user.customer.id
+        new_marker.user_id = request.auth.user.id
         new_marker.description = request.data["description"]
         new_marker.is_public = request.data["is_public"]
         new_marker.picture_url = request.data["picture_url"]
@@ -107,7 +107,15 @@ class Markers(ViewSet):
 
         # TODO filter so you only see public and your own!
         markers = Marker.objects.all()
+        def filter_markers(marker) :
+            if marker.is_public:
+                return True
+            elif marker.user_id == request.auth.user.id:
+                return True
+            else:
+                return False
+        filtered_markers = filter(filter_markers, markers)
             
         serializer = MarkerSerializer(
-            markers, many=True, context={'request': request})
+            filtered_markers, many=True, context={'request': request})
         return Response(serializer.data)
