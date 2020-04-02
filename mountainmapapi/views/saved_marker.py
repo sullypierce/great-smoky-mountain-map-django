@@ -67,7 +67,7 @@ class SavedMarkers(ViewSet):
             Response -- 200, 404, or 500 status code
         """
         try:
-            saved_marker_to_delete = SavedMarker.objects.get(pk=pk)
+            saved_marker_to_delete = SavedMarker.objects.get(marker_id=pk)
             saved_marker_to_delete.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
