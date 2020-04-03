@@ -24,6 +24,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'markers', Markers, 'marker')
 router.register(r'markertypes', MarkerTypes, 'markertype')
 router.register(r'users', Users, 'user')
+router.register(r'savedmarkers', SavedMarkers, 'savedmarker')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
